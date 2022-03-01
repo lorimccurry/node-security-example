@@ -90,7 +90,13 @@ app.get(
   }
 );
 
-app.get('/auth/logout', (req, res) => {});
+app.get('/auth/logout', (req, res) => {
+  // passport adds a logout fn to req
+  // logout removes req.user and clears
+  // any logged in session.
+  req.logout();
+  return res.redirect('/');
+});
 
 app.get('/secret', checkLoggedIn, (req, res) => {
   return res.send('Your personal secret value is 42!');
